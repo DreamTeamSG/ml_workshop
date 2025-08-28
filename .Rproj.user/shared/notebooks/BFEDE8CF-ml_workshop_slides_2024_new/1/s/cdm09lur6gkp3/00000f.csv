@@ -1,0 +1,4 @@
+"0","filter <- flt(""correlation"", method = ""pearson"")"
+"0","filter <- po(""filter"", filter = filter)"
+"0","filter$param_set$values$filter.nfeat <- 10"
+"0","filtered_lm <- as_learner(filter %>>% lm)"

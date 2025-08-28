@@ -1,0 +1,7 @@
+{
+    "installOptions": {
+        "installFromRepository": true,
+        "libraryPath": "/Users/timokoch/Library/CloudStorage/OneDrive-UniversitaetSt.Gallen/talks/DPPD_2025/ml_tutorial/MLWorkshop 2/renv/library/R-4.4/aarch64-apple-darwin20",
+        "installDependencies": true
+    }
+}

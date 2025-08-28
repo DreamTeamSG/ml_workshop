@@ -1,0 +1,82 @@
+"0","# regression"
+"0","design_regr <- benchmark_grid("
+"0","  tasks = task_Soci,"
+"0","  learners = list(fl_regr, lasso_regr, rf_regr),"
+"0","  resamplings = rsmp(""cv"", folds = 10))"
+"0","bm_regr <- benchmark(design_regr)"
+"1","INFO  [14:33:31.323] [mlr3] Running benchmark with 30 resampling iterations"
+"1","
+"
+"2","Warning message:
+Project requested R version '4.3.2' but '4.4.1' is currently being used 
+"
+"1","INFO  [14:33:31.890] [mlr3] Applying learner 'regr.featureless' on task 'Sociability_Regr' (iter 1/10)
+"
+"1","INFO  [14:33:32.033] [mlr3] Applying learner 'regr.featureless' on task 'Sociability_Regr' (iter 2/10)
+"
+"1","INFO  [14:33:32.035] [mlr3] Applying learner 'regr.featureless' on task 'Sociability_Regr' (iter 3/10)
+"
+"1","INFO  [14:33:32.111] [mlr3] Applying learner 'regr.featureless' on task 'Sociability_Regr' (iter 4/10)
+"
+"1","INFO  [14:33:32.094] [mlr3] Applying learner 'regr.featureless' on task 'Sociability_Regr' (iter 5/10)
+"
+"1","INFO  [14:33:32.133] [mlr3] Applying learner 'regr.featureless' on task 'Sociability_Regr' (iter 6/10)
+"
+"1","INFO  [14:33:32.162] [mlr3] Applying learner 'regr.featureless' on task 'Sociability_Regr' (iter 7/10)
+"
+"1","INFO  [14:33:32.190] [mlr3] Applying learner 'regr.featureless' on task 'Sociability_Regr' (iter 8/10)
+"
+"1","INFO  [14:33:32.218] [mlr3] Applying learner 'regr.featureless' on task 'Sociability_Regr' (iter 9/10)
+"
+"1","INFO  [14:33:32.245] [mlr3] Applying learner 'regr.featureless' on task 'Sociability_Regr' (iter 10/10)
+"
+"1","INFO  [14:33:32.271] [mlr3] Applying learner 'imputemedian.regr.cv_glmnet' on task 'Sociability_Regr' (iter 1/10)
+"
+"1","INFO  [14:33:32.299] [mlr3] Applying learner 'imputemedian.regr.cv_glmnet' on task 'Sociability_Regr' (iter 2/10)
+"
+"1","INFO  [14:33:37.038] [mlr3] Applying learner 'imputemedian.regr.cv_glmnet' on task 'Sociability_Regr' (iter 3/10)
+"
+"1","INFO  [14:33:37.147] [mlr3] Applying learner 'imputemedian.regr.cv_glmnet' on task 'Sociability_Regr' (iter 4/10)
+"
+"1","INFO  [14:33:41.410] [mlr3] Applying learner 'imputemedian.regr.cv_glmnet' on task 'Sociability_Regr' (iter 5/10)
+"
+"1","INFO  [14:33:41.667] [mlr3] Applying learner 'imputemedian.regr.cv_glmnet' on task 'Sociability_Regr' (iter 6/10)
+"
+"1","INFO  [14:33:45.651] [mlr3] Applying learner 'imputemedian.regr.cv_glmnet' on task 'Sociability_Regr' (iter 7/10)
+"
+"1","INFO  [14:33:45.955] [mlr3] Applying learner 'imputemedian.regr.cv_glmnet' on task 'Sociability_Regr' (iter 8/10)
+"
+"1","INFO  [14:33:49.994] [mlr3] Applying learner 'imputemedian.regr.cv_glmnet' on task 'Sociability_Regr' (iter 9/10)
+"
+"1","INFO  [14:33:50.363] [mlr3] Applying learner 'imputemedian.regr.cv_glmnet' on task 'Sociability_Regr' (iter 10/10)
+"
+"1","INFO  [14:33:54.142] [mlr3] Applying learner 'imputemedian.regr.ranger' on task 'Sociability_Regr' (iter 1/10)
+"
+"1","INFO  [14:33:54.548] [mlr3] Applying learner 'imputemedian.regr.ranger' on task 'Sociability_Regr' (iter 2/10)
+"
+"1","INFO  [14:33:58.024] [mlr3] Applying learner 'imputemedian.regr.ranger' on task 'Sociability_Regr' (iter 3/10)
+"
+"1","INFO  [14:33:58.524] [mlr3] Applying learner 'imputemedian.regr.ranger' on task 'Sociability_Regr' (iter 4/10)
+"
+"1","INFO  [14:34:01.897] [mlr3] Applying learner 'imputemedian.regr.ranger' on task 'Sociability_Regr' (iter 5/10)
+"
+"1","INFO  [14:34:02.455] [mlr3] Applying learner 'imputemedian.regr.ranger' on task 'Sociability_Regr' (iter 6/10)
+"
+"1","INFO  [14:34:05.771] [mlr3] Applying learner 'imputemedian.regr.ranger' on task 'Sociability_Regr' (iter 7/10)
+"
+"1","INFO  [14:34:06.410] [mlr3] Applying learner 'imputemedian.regr.ranger' on task 'Sociability_Regr' (iter 8/10)
+"
+"1","INFO  [14:34:09.726] [mlr3] Applying learner 'imputemedian.regr.ranger' on task 'Sociability_Regr' (iter 9/10)
+"
+"1","INFO  [14:34:10.281] [mlr3] Applying learner 'imputemedian.regr.ranger' on task 'Sociability_Regr' (iter 10/10)
+"
+"1","INFO  [14:34:14.228] [mlr3] Finished benchmark"
+"1","
+"
+"0","# classification"
+"0","design_classif <- benchmark_grid("
+"0","  tasks = task_Soci_bin,"
+"0","  learners = list(fl_classif, lasso_classif, rf_classif), "
+"0","  resamplings = rsmp(""cv"", folds = 10))"
+"2","Error: object 'task_Soci_bin' not found
+"

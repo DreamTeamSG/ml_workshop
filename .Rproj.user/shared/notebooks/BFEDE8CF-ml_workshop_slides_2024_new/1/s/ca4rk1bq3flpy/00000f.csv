@@ -1,0 +1,6 @@
+"0","library(rpart)"
+"0","library(rpart.plot)"
+"0",""
+"0","data(ptitanic)"
+"0","tree = rpart(survived~., data = na.omit(ptitanic))"
+"0","rpart.plot(tree, extra = 1)"

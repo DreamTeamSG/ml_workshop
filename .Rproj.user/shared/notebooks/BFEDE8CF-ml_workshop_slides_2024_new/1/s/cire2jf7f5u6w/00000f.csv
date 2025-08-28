@@ -1,0 +1,5 @@
+"0","set.seed(1)"
+"0","dat <- matrix(rnorm(prod(dim(phonedata))), nrow = nrow(phonedata), "
+"0","              ncol = ncol(phonedata))"
+"0","dat <- as.data.frame(dat)"
+"0","colnames(dat)[ncol(phonedata)] <- ""Target"""

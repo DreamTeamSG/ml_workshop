@@ -1,0 +1,4 @@
+"0","pd <- model_profile(rf_exp, variables = exemplary_features, "
+"0","                     N = 100, center = FALSE, type = ""partial"")"
+"0","plot(pd,  geom = ""aggregates"", variables = ""nightly_mean_num_call"") + "
+"0","  geom_rug(sides = ""b"") + xlim(0, 2) + ylim(0.5, 2)"

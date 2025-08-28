@@ -1,0 +1,6 @@
+"0","# select a small subset of variables to reduce compute time"
+"0","# NOTE: in practice you probably want to use ALL variables!"
+"0",""
+"0","exemplary_features <- c(""nightly_mean_num_call"", "
+"0","                        ""daily_mean_num_call_out"", "
+"0","                        ""daily_mean_num_.com.whatsapp"")"

@@ -1,0 +1,4 @@
+"0","# po defines a single pipeline operation"
+"0","imputer <- po(""imputemedian"") "
+"0","# combine po and learner into a pipeline"
+"0","lm <- as_learner(imputer %>>% lm) "

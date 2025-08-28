@@ -1,0 +1,8 @@
+"0","lrn1 <- lrn(""regr.lm"")"
+"0","lrn2 <- lrn1$clone(deep = TRUE)"
+"0","lrn2$id <- ""LEARNER 2"""
+"0","lrn1$id"
+"1","[1]"
+"1"," ""regr.lm"""
+"1","
+"

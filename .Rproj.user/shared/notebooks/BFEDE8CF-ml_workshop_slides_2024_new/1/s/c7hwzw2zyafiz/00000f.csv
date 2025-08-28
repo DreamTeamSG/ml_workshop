@@ -1,0 +1,7 @@
+"0","# code was provided by the working group of computational statistics "
+"0","# led by Bernd Bischl at LMU Munich"
+"0",""
+"0","## create plot "
+"0","par(mar = c(4, 4, 2, 2) + 1)"
+"0","plot(1, type = ""n"", xlim = c(1, 9), ylim = c(0, 0.06),"
+"0","     ylab = ""MSE"", xlab = ""degree of flexibility"", cex.lab = 0.8, cex.axis = 0.8)"

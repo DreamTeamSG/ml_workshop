@@ -1,0 +1,4 @@
+"0","library(knitr)"
+"0","opts_chunk$set(echo = TRUE, fig.align = ""center"", tidy = FALSE, comment = NA,"
+"0","  message = FALSE, warning = FALSE, cache = FALSE, autodep = FALSE, eval = TRUE)"
+"0","options(scipen = 1, digits = 2, ggplot2.discrete.colour = list(RColorBrewer::brewer.pal(2, ""Dark2""), RColorBrewer::brewer.pal(10, ""RdYlBu""), rep(RColorBrewer::brewer.pal(10, ""RdYlBu""), 6)))"

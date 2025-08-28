@@ -1,0 +1,4 @@
+"0","varimp <- model_parts(rf_exp, B = 2, N = nrow(phonedata), "
+"0","                      variables = exemplary_features, "
+"0","                      type = ""difference"")"
+"0","plot(varimp, show_boxplots = TRUE)"

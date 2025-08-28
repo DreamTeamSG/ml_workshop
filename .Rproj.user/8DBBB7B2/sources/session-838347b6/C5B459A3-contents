@@ -1,0 +1,109 @@
+utils::install.packages("mlr3verse")
+library(mlr3verse)
+
+phonedata = readRDS("clusterdata.RDS")
+phonedata = phonedata[complete.cases(phonedata$gender),]
+phonedata = phonedata[, c(1:1821, 1837)]
+
+# Define task
+regr_task = as_task_regr(
+  phonedata,
+  id = "Big5",
+  target = "E2.Sociableness"
+)
+
+# Define learner
+learner_lm = lrn("regr.lm")
+
+# Train the model
+learner_lm$train(task = regr_task)
+
+# Impute missing data
+imputer = po("imputemedian")
+
+# Defined NEW learner: Combine imputation and training
+new_learner = as_learner(imputer %>>% learner_lm)
+
+# Train NEW learner
+new_learner$train(task = regr_task)
+
+# Get predictions
+predictions = new_learner$predict(regr_task)
+predictions
+measures = msrs(c("regr.rsq", "regr.rmse"))
+predictions$score(measures)
+
+
+
+# CROSS VALIDATION!!!
+set.seed(1)
+rdesc = rsmp("cv", folds = 5)
+
+# Train with resampling
+resampling_results = resample(
+  learner = new_learner,
+  task = regr_task,
+  resampling = rdesc,
+  store_models = TRUE
+)
+resampling_results$aggregate(measures)
+
+
+
+# BENCHMARK lrns()
+lrn_featureless = as_learner(po("imputemedian") %>>% lrn("regr.featureless"))
+lrn_linear = as_learner(po("imputemedian") %>>% lrn("regr.lm"))
+lrn_forest = as_learner(po("imputeoor") %>>% lrn("regr.ranger"))
+
+comparison = benchmark(benchmark_grid(
+  tasks = regr_task,
+  learners = list(lrn_featureless, lrn_linear, lrn_forest),
+  resamplings = rsmp("cv", folds = 3)
+))
+
+comparison$aggregate(measures)
+
+
+
+
+
+# Classification
+
+# Dichotomize the target variable based on median
+median_val <- median(phonedata$E2.Sociableness, na.rm = TRUE)
+phonedata$Sociability_Bin <- ifelse(phonedata$E2.Sociableness > median_val, "high", "low")
+phonedata$Sociability_Bin <- as.factor(phonedata$Sociability_Bin)
+phonedata$E2.Sociableness <- NULL
+
+# Define task
+classif_task = as_task_classif(
+  phonedata,
+  id = "Big5_classif",
+  target = "Sociability_Bin"
+)
+
+# Define learner
+learner_log_reg = as_learner(po("imputemedian") %>>% lrn("classif.log_reg", predict_type = "prob"))
+
+# Train the model
+learner_log_reg$train(task = classif_task)
+
+# Get predictions
+predictions = learner_log_reg$predict(classif_task)
+predictions
+
+
+# CROSS VALIDATION!!!
+set.seed(1)
+rdesc = rsmp("cv", folds = 3)
+
+# Train with resampling
+resampling_results = resample(
+  learner = learner_log_reg,
+  task = classif_task,
+  resampling = rdesc
+)
+measures = msrs(c("classif.auc", "classif.acc"))
+resampling_results$aggregate(measures)
+
+

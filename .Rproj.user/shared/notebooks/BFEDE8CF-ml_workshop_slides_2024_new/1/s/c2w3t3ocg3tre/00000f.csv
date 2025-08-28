@@ -1,0 +1,7 @@
+"0","# Download the data from"
+"0","# https://osf.io/mnfbd/"
+"0","phonedata = readRDS(file = ""clusterdata.RDS"")"
+"0","# remove participants who did not indicate their gender"
+"0","phonedata = phonedata[complete.cases(phonedata$gender),] "
+"0","# remove variables we do not use in our tutorial"
+"0","phonedata = phonedata[, c(1:1821,1837)] "

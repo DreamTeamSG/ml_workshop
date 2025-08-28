@@ -1,0 +1,4 @@
+"0","## 1 Split"
+"0","tree_ah1 <- rpart(Sale_Price ~ Gr_Liv_Area + Year_Built, data = task_ah$data(), cp=0.2)"
+"0","col1 <- c(""#FFFFFF"", ""#5E9EF1"", ""#B3EB77"")"
+"0","prp(tree_ah1, extra = 1, box.col = col1, type = 2, branch = 1, fallen.leaves = TRUE)"

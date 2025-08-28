@@ -1,0 +1,6 @@
+"0","# load packages"
+"0","library(DALEXtra)"
+"0","library(ggplot2)"
+"0",""
+"0","set.seed(123)"
+"0","rf_regr$train(task_Soci)"

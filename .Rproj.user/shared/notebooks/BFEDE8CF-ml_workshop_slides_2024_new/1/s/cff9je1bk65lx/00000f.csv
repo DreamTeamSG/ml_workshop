@@ -1,0 +1,11 @@
+"0","plan(""multisession"", workers = 2)"
+"2","Warning message:
+Project requested R version '4.3.2' but '4.4.1' is currently being used 
+"
+"2","Warning message:
+Project requested R version '4.3.2' but '4.4.1' is currently being used 
+"
+"2","Warning message:
+Project requested R version '4.3.2' but '4.4.1' is currently being used 
+"
+"0","set.seed(2)"

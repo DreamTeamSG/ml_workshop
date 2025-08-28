@@ -1,0 +1,5 @@
+"0","phonedata$E2.Sociableness_bin <- ifelse("
+"0","  phonedata$E2.Sociableness >= median(phonedata$E2.Sociableness),"
+"0","  ""high"", ""low"")"
+"0","phonedata$E2.Sociableness_bin <- "
+"0","  as.factor(phonedata$E2.Sociableness_bin)"

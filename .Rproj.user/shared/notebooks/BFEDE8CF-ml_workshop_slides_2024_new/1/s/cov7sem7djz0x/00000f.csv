@@ -1,0 +1,3 @@
+"0","mes_regr <- msrs(c(""regr.rsq"", ""regr.mse"", ""regr.srho""))"
+"0","mes_classif <- msrs(c(""classif.ce"", ""classif.tpr"", ""classif.tnr""))"
+"0","# tpr: sensitivity, tnr: specificity"

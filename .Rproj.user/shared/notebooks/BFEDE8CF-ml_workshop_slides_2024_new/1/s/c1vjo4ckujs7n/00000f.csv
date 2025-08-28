@@ -1,0 +1,4 @@
+"0","target_cors <- cor(dat)[-ncol(phonedata), ""Target""]"
+"0","ten_best_vars <- names(sort(abs(target_cors), decreasing = TRUE)[1:10])"
+"0","task_10 <- as_task_regr(dat[,c(ten_best_vars, ""Target"")], "
+"0","                        id = ""ten_best"", target = ""Target"")"

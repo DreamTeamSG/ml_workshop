@@ -1,0 +1,4 @@
+"0","for (i in seq_along(mods)) {"
+"0","  lines(x.plot, predict(mods[[i]], newdata = data.frame(x = x.plot)),"
+"0","        col = line.palette[i], lwd = 2L)"
+"0","}"
