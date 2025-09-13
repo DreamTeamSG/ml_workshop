@@ -1,31 +1,33 @@
 ---
 title: "An Introduction to Machine Learning in R"
-subtitle: "Workshop"
 author: "Ramona Schoedel"
 date: "February 2024"
-bibliography: ml_workshop.bib
-linkcolor: blue
-header-includes:
-  - \widowpenalties 1 150
-  - \let\oldShaded\Shaded
-  - \let\endoldShaded\endShaded
-  - \renewenvironment{Shaded}{\footnotesize\oldShaded}{\endoldShaded}
-  - \definecolor{shadecolor}{RGB}{      221,    219,    217}
-  - \let\oldverbatim\verbatim
-  - \let\endoldverbatim\endverbatim
-  - \renewenvironment{verbatim}{\footnotesize\oldverbatim}{\endoldverbatim}
-output: 
+output:
   beamer_presentation:
     toc: false
-    theme: "metropolis"
+    theme: metropolis
     fig_width: 8
     fig_height: 6
     fig_caption: false
     highlight: default
     df_print: kable
     slide_level: 2
-editor_options: 
-  markdown: 
+  ioslides_presentation:
+    highlight: default
+bibliography: ml_workshop.bib
+linkcolor: blue
+header-includes:
+- \widowpenalties 1 150
+- \let\oldShaded\Shaded
+- \let\endoldShaded\endShaded
+- \renewenvironment{Shaded}{\footnotesize\oldShaded}{\endoldShaded}
+- \definecolor{shadecolor}{RGB}{      221,    219,    217}
+- \let\oldverbatim\verbatim
+- \let\endoldverbatim\endverbatim
+- \renewenvironment{verbatim}{\footnotesize\oldverbatim}{\endoldverbatim}
+subtitle: Workshop
+editor_options:
+  markdown:
     wrap: 72
 fontsize: 10pt
 ---
@@ -54,54 +56,28 @@ These workshop materials are a "living" joint project with  \
 
 ## Agenda 
 
-**Day 1**
+**Programm for today**
 
--   Introduction
-
-    -   1 Applications in Personality Psychology
-    -   2 Predictive Modeling Mindset
-    -   3 Basic Terminology
-    -   4 **HANDS ON: Some Introductory Words**
-
-    
--   Performance Evaluation 
-
-    -   1 Performance Measures
-    -   2 Bias-Variance Trade Off 
-    -   3 Resampling Strategies for Model Evaluation
-    -   4 **HANDS-ON: Performance Evaluation With Resampling**
-    -   5 Some Advanced Aspects on Model Evaluation
-        
-
-## Agenda
-
-**Day 2**
-
--   Random Forests
-
-    -   1 Classification & regression trees
-    -   2 From Trees to Forests
-    -   3 **HANDS-ON: Random Forest Training**
-    
--   Benchmark Experiments
-
-    -   1 Model Comparisons
-    -   2 **HANDS-ON: Benchmark Experiments**
-
--   Interpretation of Models
-
-    -   1 Interpretable Machine Learning
-    -   2 **HANDS-ON: Variable Importance & Effect Plots**
-
--   Summary 
+| Time              | Session                          | Duration |
+|-------------------|----------------------------------|----------|
+| 9:00 AM – 9:25 AM | Welcome & Get-to-know            | 25 min   |
+| 9:25 AM – 9:50 AM | Introduction to Machine Learning | 25 min   |
+| 9:50 AM – 10:35 AM| Performance Evaluation           | 45 min   |
+| 10:35 AM – 10:50 AM| Coffee Break                    | 15 min   |
+| 10:50 AM – 12:00 PM| Coding Session I                | 70 min   |
+| 12:00 PM – 1:00 PM| Lunch Break                      | 60 min   |
+| 1:00 PM – 1:45 PM | Model Overview(?)                | 45 min   |
+| 1:45 PM – 2:30 PM | Coding Session II                | 75 min   |
+| 2:30 PM – 2:45 PM | Coffee Break                     | 15 min   |
+| 2:45 PM – 3:45 PM | Model Interpretation             | 60 min   |
+| 3:45 PM – 4:00 PM | Coffee Break                     | 15 min   |
+| 4:00 PM – 5:00 PM | Coding Session III               | 60 min   |
 
 
 
+# Introduction to Machine Learning
 
-
-# Introduction
-
-## 1 Applications in Personality Psychology
+## Applications in Personality Psychology
 
 Machine learning methods are increasingly being used for personality psychological research questions.
 
@@ -120,17 +96,17 @@ Examples for predictive modeling:
 -   ...
 
 
-## 1 Applications in Personality Psychology
+## Applications in Personality Psychology
 
 ... with mobile sensing data: 
 
 -   situational characteristics [@Schoedel2023]
 -   personality states [@ruegger2020]
 -   personality traits [@Stachl2020]
--   ...
+-   add our studies here!
 
 
-## 2 Predictive Modeling Mindset
+## Predictive Modeling Mindset
 
 We can distinguish between two modeling cultures [@breiman_statistical_2001]: 
 
@@ -152,7 +128,7 @@ We can distinguish between two modeling cultures [@breiman_statistical_2001]:
     -   often (still) bad for explanation
     
   
-## 2 Predictive Modeling Mindset
+## Predictive Modeling Mindset
 
 **Explanation vs. Prediction**
 
@@ -164,7 +140,7 @@ We can distinguish between two modeling cultures [@breiman_statistical_2001]:
 -   See if theories predict relevant criteria [@shmueli_to_2010]
 
 
-## 2 Predictive Modeling Mindset
+## Predictive Modeling Mindset
 
 **Summary**
 
@@ -182,7 +158,7 @@ We can distinguish between two modeling cultures [@breiman_statistical_2001]:
 
 
 
-## 3 Basic Terminology
+## Basic Terminology
 
 **The 1x1 of Supervised Machine Learning Vocabulary**
 
@@ -190,7 +166,7 @@ We can distinguish between two modeling cultures [@breiman_statistical_2001]:
 -   **Features**: predictor variables (e.g., smartphone usage behaviors)
 
 
-## 3 Basic Terminology
+## Basic Terminology
 
 **The 1x1 of Supervised Machine Learning Vocabulary**
 
@@ -236,7 +212,7 @@ logr <- lrn("classif.log_reg", predict_type = "prob")
 ```
 
 
-## 3 Basic Terminology
+## Basic Terminology
 
 **The 1x1 of Supervised Machine Learning Vocabulary**
 
@@ -253,7 +229,7 @@ logr <- lrn("classif.log_reg", predict_type = "prob")
     -   ...
 
 
-## 3 Basic Terminology
+## Basic Terminology
 
 **The 1x1 of Supervised Machine Learning Vocabulary**
 
@@ -270,7 +246,7 @@ logr <- lrn("classif.log_reg", predict_type = "prob")
 
 
 
-## 4 HANDS ON: Some Introductory Words
+## Data & methods used today
 
 **Data Set Used**
 
@@ -292,7 +268,7 @@ In this workshop, we use a publicly available mobile sensing data set:
 
 
 
-## 4 HANDS ON: Some Introductory Words
+## Data & methods used today
 
 **Software Used**
 
@@ -331,14 +307,14 @@ population:
 **First things first: How to quantify the quality of models?**
 
 
-## 1 The Bias-Variance Trade-Off
+## The Bias-Variance Trade-Off
 
 Helpful mental model to reflect on which factors influence the performance of a predictive model in theory:
 
 **Prediction Error = f(Bias, Variance, Noise)**
 
 
-## 1 The Bias-Variance Trade-Off
+## The Bias-Variance Trade-Off
 
 ![Variance_vs_bias](Figures/targets.png){width="60%"}\centering
 
@@ -348,7 +324,7 @@ Helpful mental model to reflect on which factors influence the performance of a 
 -   **Goal: Find a predictive model with low bias AND low variance**
 
 
-## 1 The Bias-Variance Trade-Off
+## The Bias-Variance Trade-Off
 
 ```{r, echo=FALSE}
 library(ggplot2)
@@ -486,7 +462,7 @@ grid.arrange(bias_1, var_1, ncol = 2, nrow = 1, widths = c(2, 2))
 ```
 
 
-## 1 The Bias-Variance Trade-Off
+## The Bias-Variance Trade-Off
 
 Example 2: 60 Samples with **N = 50** each
 
@@ -496,7 +472,7 @@ grid.arrange(bias_2, var_2, ncol = 2, nrow = 1, widths = c(2, 2))
 
 
 
-## 2 Performance Measures
+## Performance Measures
 
 **Regression Tasks**
 
@@ -512,7 +488,7 @@ $$R^2 = 1- \frac{residual\ sum\ of\ squares}{total\ sum\ of\ squares} =
 1-\frac{\sum_{i=1}^n (y_i-\hat{y_i})^2}{\sum_{i=1}^n (y_i-\bar{y})^2}$$
 
 
-## 2 Performance Measures
+## Performance Measures
 
 **Classification Tasks**
 
@@ -523,7 +499,7 @@ Mean misclassification error ($\widehat{=}$ MSE)
 $$MMCE = \frac{1}{n} \sum_{i=1}^n I(y_i \neq \hat{y_i})$$
 
 
-## 2 Performance Measures
+## Performance Measures
 
 **Classification Tasks**
 
@@ -536,7 +512,7 @@ $$MMCE = \frac{1}{n} \sum_{i=1}^n I(y_i \neq \hat{y_i})$$
 
 
 
-## 3 Resampling Strategies for Model Evaluation
+## Resampling Strategies for Model Evaluation
 
 **The Idea Behind Resampling**
 
@@ -556,7 +532,7 @@ $$MMCE = \frac{1}{n} \sum_{i=1}^n I(y_i \neq \hat{y_i})$$
     -   **Test set**: compute performance
 
 
-## 3 Resampling Strategies for Model Evaluation
+## Resampling Strategies for Model Evaluation
 
 **The Idea Behind Resampling**
 
@@ -570,7 +546,7 @@ Learn a functional relationship between **X** and **y**:
 
 
 
-## 3 Resampling Strategies for Model Evaluation
+## Resampling Strategies for Model Evaluation
 
 **The Idea Behind Resampling**
 
@@ -578,7 +554,7 @@ Learn a functional relationship between **X** and **y**:
 
 
 
-## 3 Resampling Strategies for Model Evaluation
+## Resampling Strategies for Model Evaluation
 
 **The Idea Behind Resampling**
 
@@ -586,7 +562,7 @@ Learn a functional relationship between **X** and **y**:
 
 
 
-## 3 Resampling Strategies for Model Evaluation 
+## Resampling Strategies for Model Evaluation 
 
 IMPORTANT NOTE: Do not get confused by the different models!
 
@@ -602,12 +578,7 @@ IMPORTANT NOTE: Do not get confused by the different models!
 -   can be **discarded** after test set predictions
 
 
-## Let's Take a Break!
-
-![Break](Figures/break.png){width="90%"}\centering
-
-
-## 3 Resampling Strategies for Model Evaluation
+## Resampling Strategies for Model Evaluation
 
 **Why Do We Have to Separate Training and Test Data?**
 
@@ -623,7 +594,7 @@ IMPORTANT NOTE: Do not get confused by the different models!
 
 
 
-## 3 Resampling Strategies for Model Evaluation
+## Resampling Strategies for Model Evaluation
 
 **The Concept of Overfitting**
 
@@ -688,7 +659,7 @@ title(xlab = "x", ylab = "y", cex.lab = 0.8)
 ```
 
 
-## 3 Resampling Strategies for Model Evaluation 
+## Resampling Strategies for Model Evaluation 
 
 **The Concept of Overfitting**
 
@@ -714,7 +685,7 @@ arrows(9, 0.02, 7, 0.02, code = 1, lty = 2, length = 0.1)
 ```
 
 
-## 3 Resampling Strategies for Model Evaluation 
+## Resampling Strategies for Model Evaluation 
 
 **Training Set vs. Test Set -- Dilemma**
 
@@ -738,7 +709,7 @@ arrows(9, 0.02, 7, 0.02, code = 1, lty = 2, length = 0.1)
 
 
 
-## 3 Resampling Strategies for Model Evaluation @bischl_resampling_2012
+## Resampling Strategies for Model Evaluation @bischl_resampling_2012
 
 -   The resampling strategy that we have learned about so far is called **holdout**
 
@@ -758,7 +729,7 @@ arrows(9, 0.02, 7, 0.02, code = 1, lty = 2, length = 0.1)
 
 
 
-## 3 Resampling Strategies for Model Evaluation  
+## Resampling Strategies for Model Evaluation  
 
 **Cross-Validation (CV)**
 
@@ -772,8 +743,15 @@ arrows(9, 0.02, 7, 0.02, code = 1, lty = 2, length = 0.1)
 ![CV](Figures/resampling_3cv.png){height="40%"}\centering
 
 
+## Let's Take a Break!
 
-## 4 HANDS-ON: Performance Evaluation With Resampling
+![Break](Figures/break.png){width="90%"}\centering
+
+
+
+# Coding Session I
+
+## Overview over data used today
 
 **Reminder:** We use the PhoneStudy Behavioral Patterns Dataset  \
 (Stachl et al., 2020, PNAS):
@@ -791,7 +769,7 @@ arrows(9, 0.02, 7, 0.02, code = 1, lty = 2, length = 0.1)
         overall phone use, day-nighttime activity
 
 
-## 4 HANDS-ON: Performance Evaluation With Resampling
+## Overview over data used today
 
 Our predictive modeling exercises with mlr3 are based on the following: 
 
@@ -806,22 +784,8 @@ Our predictive modeling exercises with mlr3 are based on the following:
 -   **Task**: Regression (as our target is continuous)
 
 
-## 4 HANDS-ON: Performance Evaluation With Resampling
 
-**Switch to RStudio**
-
-CODING VISIBILITY CHECK
-
-<!-- Explain Rmarkdown Code Chunks -->
-
-```{r}
-# Code check - is size big enough with shared screen?
-t.test(1:3, 4:6)
-```
-
-
-
-## 4 HANDS-ON: Performance Evaluation With Resampling
+## Coding Session I
 
 **Preparation** 
 
@@ -842,7 +806,7 @@ library(mlr3verse)
 ```
 
 
-## 4 HANDS-ON: Performance Evaluation With Resampling
+## Coding Session I
 
 **Exercise 1: Compute In-sample Performance the mlr3-Way**
 
@@ -856,10 +820,11 @@ library(mlr3verse)
 Create a *task* object which contains the necessary data.
 
 ```{r}
-task_Soci <- as_task_regr(phonedata, 
-                          id = "Sociability_Regr",
-                          target = "E2.Sociableness"
-                          ) 
+task_Soci <- as_task_regr(
+  phonedata,
+  id = "Sociability_Regr",
+  target = "E2.Sociableness"
+)
 ```
 
 ------------------------------------------------------------------------
@@ -877,6 +842,7 @@ learners at <https://mlr3book.mlr-org.com/learners.html>
 
 ```{r}
 lm <- lrn("regr.lm")
+lm$id <- "linear_model"
 ```
 
 *Train* the *learner* on the *task*.
@@ -913,8 +879,8 @@ Compute in-sample *performance* ($R^2$ and $MSE$).
 
 ```{r}
 options(scipen = 999)
-mes <- msrs(c("regr.rsq", "regr.mse"))
-prediction$score(mes)
+measures <- msrs(c("regr.rsq", "regr.mse"))
+prediction$score(measures)
 ```
 
 We could also inspect other performance measures. 
@@ -923,7 +889,7 @@ We can get an exhaustive overview of available measures via: `as.data.table(mlr_
 
 
 
-## 4 HANDS-ON: Performance Evaluation With Resampling
+## Coding Session I
 
 **Exercise 2: Cross-Validation**
 
@@ -950,10 +916,12 @@ set.seed(1)
 Perform *cross-validation* and compute out-of-sample performance.
 
 ```{r, message=TRUE}
-res <- resample(learner = lm, 
-                task = task_Soci, 
-                resampling = rdesc)
-res$aggregate(mes)
+res <- resample(
+  learner = lm,
+  task = task_Soci,
+  resampling = rdesc,
+  store_models = TRUE)
+res$aggregate(measures)
 ```
 
 <!-- Switch to Slides -->
@@ -962,7 +930,7 @@ res$aggregate(mes)
 Compare our out-of-sample with the in-sample performance (s. Exercise 1).
 
 ```{r}
-matrix(c(prediction$score(mes), res$aggregate(mes)), nrow = 2,
+matrix(c(prediction$score(measures), res$aggregate(measures)), nrow = 2,
   dimnames = list(c("R^2", "MSE"), c("in-sample", "cross-validation")))
 ```
 
@@ -971,7 +939,7 @@ Resampling shows that the prediction does not work well ...
 
 
 
-## 4 HANDS-ON: Performance Evaluation With Resampling
+## Coding Session I
 
 **Negative $R^2$**
 
@@ -1042,14 +1010,8 @@ grid.arrange(p1, p2, p3, ncol = 3)
     $R_{test}^2$)
 
 
-## Let's Take a Break!
 
-![Break](Figures/break.png){width="90%"}\centering
-
-
-
-
-## 5 Some Advanced Aspects on Model Evaluation
+## Some Advanced Aspects on Model Evaluation
 
 **Model Optimization**
 
@@ -1069,7 +1031,7 @@ If the decision itself requires resampling\
 **-\> Nested Resampling**
 
 
-## 5 Some Advanced Aspects on Model Evaluation
+## Some Advanced Aspects on Model Evaluation
 
 **Nested Resampling**
 
@@ -1084,7 +1046,7 @@ If the decision itself requires resampling\
 
 
 
-## 5 Some Advanced Aspects on Model Evaluation
+## Some Advanced Aspects on Model Evaluation
 
 **Variable Selection**
 
@@ -1104,7 +1066,7 @@ If the decision itself requires resampling\
 -   *HARKING*
 
 
-## 5 Some Advanced Aspects on Model Evaluation 
+## Some Advanced Aspects on Model Evaluation 
 
 **Variable Selection: Illustration of Common Mistakes**
 
@@ -1201,30 +1163,9 @@ target mean of the respective test sets and ignoring all predictors.
 
 
 
-## Comments on R6
-
-- mlr3 is written in the **R6** OOP system (<https://mlr3book.mlr-org.com/r6.html>)   
-- **WARNING:** R6 objects are *NOT* copied when modified. 
-- If you want to copy an mlr3 object you have to use the `$clone(deep = TRUE)` method!
-
-```{r}
-lrn1 <- lrn("regr.lm")
-lrn2 <- lrn1
-lrn2$id <- "LEARNER 2"
-lrn1$id
-```
-
-```{r}
-lrn1 <- lrn("regr.lm")
-lrn2 <- lrn1$clone(deep = TRUE)
-lrn2$id <- "LEARNER 2"
-lrn1$id
-```
 
 
-## Closing Time For Today!
 
-![feierabend](Figures/feierabend.png){width="90%"}\centering
 
 
 
