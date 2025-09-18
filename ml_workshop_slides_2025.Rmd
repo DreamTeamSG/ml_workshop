@@ -2060,7 +2060,6 @@ plot(bm_classif, type = "roc")
 
 ![Break](Figures/break.png){width="90%"}\centering
 
-
 # Interpretation of Models
 
 ## 1 Interpretable Machine Learning
@@ -2071,7 +2070,7 @@ in a humanly understandable way
 -   *Which* predictors most influence model predictions?\
     -\> **Variable Importance Measures:**
 
-    -   ranking of important predictors (no absolute interpretation)
+    -   ranking of important predictors (no absolute interpretation!)
     -   mostly inspired by measures from random forests
 
 -   *How* do individual predictors influence model predictions?\
@@ -2080,7 +2079,6 @@ in a humanly understandable way
     -   plot possible values of a variable against the (mean)
         predictions of the model
     -   visualize interactions of predictor variables
-
 
 ## 2 HANDS-ON: Variable Importance & Effect Plots
 
@@ -2152,9 +2150,9 @@ plot(varimp, show_boxplots = TRUE)
 -   Important topics when using variable importance in practice:
 
     -   Different measures lead to different results
-    -   Different measures have different interpretations
-    -   Some measures use alternative random forest algorithms
-    -   Some measures are more expensive to compute than others
+    -   Interpretations vary
+    -   Some require alternative RF algorithms (e.g., conditional forests)
+    -   Computational cost can differ
 
 -\> What is most appropriate for your application?
 
@@ -2162,6 +2160,9 @@ plot(varimp, show_boxplots = TRUE)
 ------------------------------------------------------------------------
 
 **Individual Conditional Expectation (ICE) Profiles**
+
+-   Shows prediction curve for each individual observation
+-   Reveals variation across individuals
 
 ```{r, out.width="\\linewidth", out.height="65%"}
 ice <- model_profile(rf_exp, variables = exemplary_features, 
@@ -2174,6 +2175,9 @@ plot(ice,  geom = "profiles", variables = "nightly_mean_num_call") +
 
 **Partial Dependence (PD) Plot**
 
+-   Displays the average effect of a feature on predictions
+-   Good for global interpretation
+
 ```{r, out.width="\\linewidth", out.height="65%"}
 pd <- model_profile(rf_exp, variables = exemplary_features, 
                      N = 100, center = FALSE, type = "partial")
@@ -2184,7 +2188,12 @@ plot(pd,  geom = "aggregates", variables = "nightly_mean_num_call") +
 
 ------------------------------------------------------------------------
 
-**Shapley Additive Explanations (SHAP) Summary Plot**
+**SHapley Additive Explanations (SHAP) Summary Plot**
+
+-   SHAP is based on cooperative game theory → fairly distributes the "prediction difference" among features
+-   Combines feature importance + feature effects in one visualization
+-   Each point = one SHAP value for one observation
+-   Color shows feature value (low → high)
 
 ```{r, out.width="\\linewidth", out.height="65%"}
 # Compute a SHAP summary (global) for a manageable subset of observations
@@ -2247,7 +2256,7 @@ library(treeshap)
 library(shapviz)
 library(ranger)
 
-# 1) Fit a compact RF on exactly your 3 features (as you already do)
+# 1) Fit a compact RF on exactly your 3 features
 rf_model <- ranger(
   formula   = E2.Sociableness ~ .,
   data      = phonedata[, c(exemplary_features, "E2.Sociableness")],
@@ -2278,7 +2287,11 @@ sv_importance(sv, kind = "beeswarm", max_display = length(exemplary_features))
 
 ------------------------------------------------------------------------
 
-**SHAP Local Explanation**
+**SHAP Local Explanation (Waterfall Plot)**
+
+-   Explains one *single* prediction at a time
+-   Shows how each feature pushes the predicted value up or down
+-   Helps answer: “Why did the model predict this value for this specific observation?”
 
 ```{r, out.width="\\linewidth", out.height="65%"}
 # ## SHAP: Local Explanation for One Participant
@@ -2311,11 +2324,13 @@ print(p_wf)
 
 ## 2 HANDS-ON: Variable Importance & Effect Plots
 
-**CAVEAT: Causal Interpretation**
+**CAVEAT: Causal Interpretation & Generalizability**
 
 - Do **not** carelessly interpret effect plots **causally**!
+They show how predictions change, not what causes the outcome
 - IML methods only investigate the relationship between feature values and model predictions
-- they do not necessarily reflect the true data-generating process [@Zhao2021]
+- The patterns you see may not represent the true data-generating process [@Zhao2021]
+- Insights reflect your model + training data and may not hold in other populations or settings
 
 
 <!-- ## 2 HANDS-ON: Variable Importance & Effect Plots -->
@@ -2377,7 +2392,7 @@ print(p_wf)
 
 -   Repeat all steps from model application during resampling
 
--   Carefully apply IML to learn about your models inner workings
+-   Carefully apply IML to learn more about your models inner workings
 
 -   Find a **checklist** and **lessons learned** for your own project in @Pargent2023
 
@@ -2390,7 +2405,6 @@ print(p_wf)
 
 -   Personality Computing 
 
-    -   DFG-funded [Personality Computing Network](https://www.personalitycomputing.net)
     -   @henninger2023
     -   @Stachl2020ML
 
@@ -2409,19 +2423,23 @@ print(p_wf)
     -   <https://introduction-to-machine-learning.netlify.app/>
     -   <https://online.stanford.edu/courses/sohs-ystatslearning-statistical-learning-self-paced>
 
-
-
-
 ## Thank you!!!
 
 **Thrilled to see your studies with machine learning ;-)**
 
-Prof. Dr. Ramona Schödel\
-[ramona.schoedel\@charlotte-fresenius-uni.de](mailto:ramona.schoedel@charlotte-fresenius-uni.de){.email}\
+Dr. Jan Digutsch\
+[jan.digutsch\@unisg.ch](mailto:jan.digutsch@unisg.ch){.email}\
 \
-Charlotte Fresenius University, Munich 
-LMU Munich
+University of St. Gallen
 
+Max Bergmann\
+[maximilian.bergmann\@unisg.ch](mailto:maximilian.bergmannh@unisg.ch){.email}\
+\
+University of St. Gallen
 
+Dr. Timo Koch\
+[timo.koch\@unisg.ch](mailto:timo.koch@unisg.ch){.email}\
+\
+University of St. Gallen
 
 ## References {.allowframebreaks}
