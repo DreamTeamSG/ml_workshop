@@ -70,7 +70,8 @@ These workshop materials are a "living" joint project with  \
 | 2:30 PM – 2:45 PM | Coffee Break                     | 15 min   |
 | 2:45 PM – 3:45 PM | Model Interpretation             | 60 min   |
 | 3:45 PM – 4:00 PM | Coffee Break                     | 15 min   |
-| 4:00 PM – 5:00 PM | Coding Session III               | 60 min   |
+| 4:00 PM – 4:45 PM | Coding Session III               | 45 min   |
+| 4:45 PM – 5:00 PM | Summary & Closing Remarks        | 15 min   |
 
 
 # Introduction to Machine Learning
@@ -1160,7 +1161,7 @@ res_nested$aggregate(msr("regr.rsq"))
 **Result:** negative $R^2$... We did worse than predicting with the
 target mean of the respective test sets and ignoring all predictors.
 
-## Lunchbreak!
+## Lunchbreak
 
 ![Break](Figures/break.png){width="90%"}\centering
 
@@ -2056,6 +2057,8 @@ in a humanly understandable way
 
 \
 
+<!-- Switch to RStudio -->
+
 ```{r}
 # load packages
 library(DALEXtra)
@@ -2089,15 +2092,20 @@ exemplary_features <- c("nightly_mean_num_call",
                         "daily_mean_num_.com.whatsapp")
 ```
 
+<!-- Switch to slides -->
 
 ## 2 HANDS-ON: Variable Importance & Effect Plots
 
 **Permutation Variable Importance**
 
+-   Measures model performance change after randomly permuting values of a feature
+
 ```{r, out.width="\\linewidth", out.height="65%"}
-varimp <- model_parts(rf_exp, B = 2, N = nrow(phonedata), 
-                      variables = exemplary_features, 
-                      type = "difference")
+varimp <- model_parts(rf_exp, B = 2, N = nrow(phonedata), #b is the number of permutations, N is the number of obeservations
+                      variables = exemplary_features, # do this for our exemplary features
+                      type = "difference") # which score is reported
+
+# now plot the results
 plot(varimp, show_boxplots = TRUE)
 ```
 
@@ -2126,12 +2134,14 @@ plot(varimp, show_boxplots = TRUE)
 
 **Individual Conditional Expectation (ICE) Profiles**
 
--   Shows prediction curve for each individual observation
+-   Shows prediction curve for each individual observation and average overall
 -   Reveals variation across individuals
 
 ```{r, out.width="\\linewidth", out.height="65%"}
 ice <- model_profile(rf_exp, variables = exemplary_features, 
-                     N = 100, center = FALSE, type = "partial")
+                     N = 100, center = FALSE, type = "conditional") #N -> number of observations used, center -> should profiles be centered first, type -> type of profile ("conditional" for ICE)
+
+# create the plot
 plot(ice,  geom = "profiles", variables = "nightly_mean_num_call") + 
   geom_rug(sides = "b") + xlim(0, 2) + ylim(0.5, 2)
 ```
@@ -2145,7 +2155,9 @@ plot(ice,  geom = "profiles", variables = "nightly_mean_num_call") +
 
 ```{r, out.width="\\linewidth", out.height="65%"}
 pd <- model_profile(rf_exp, variables = exemplary_features, 
-                     N = 100, center = FALSE, type = "partial")
+                     N = 100, center = FALSE, type = "partial") # "partial" for PDP
+
+#  create plot
 plot(pd,  geom = "aggregates", variables = "nightly_mean_num_call") + 
   geom_rug(sides = "b") + xlim(0, 2) + ylim(0.5, 2)
 ```
@@ -2161,67 +2173,18 @@ plot(pd,  geom = "aggregates", variables = "nightly_mean_num_call") +
 -   Color shows feature value (low → high)
 
 ```{r, out.width="\\linewidth", out.height="65%"}
-# Compute a SHAP summary (global) for a manageable subset of observations
 
-# set.seed(123)
-# # sample a subset to keep it fast during the workshop
-# shap_idx <- sample(seq_len(nrow(rf_exp$data)), 10)
-# shap_obs <- rf_exp$data[shap_idx, , drop = FALSE]
-# 
-# # Kernel SHAP via DALEX; B controls the Monte Carlo approximation effort
-# shap_vals <- predict_parts(
-#   rf_exp,
-#   variables = exemplary_features,
-#   new_observation = shap_obs,
-#   type = "shap",
-#   B = 5
-# )
-# 
-# # Beeswarm-style SHAP summary: variables ordered by overall impact
-# plot(shap_vals)
+# Compute a SHAP summary (global) for a manageable subset of observations 
 
+# SHAP can take very long to compute! Therefore, we run the analyses on a subset of the data
+# to compute SHAP in R, we need to use some other packages
 
-# # --- SHAP with DALEX: all rows, exactly the 3 exemplary variables ---
-# 
-# # 1) Train a compact RF on the selected (3) features
-# task_Soci_small <- task_Soci$clone()
-# task_Soci_small$select(exemplary_features)
-# 
-# set.seed(123)
-# rf_regr_small <- lrn("regr.ranger",
-#                      num.trees = 100,
-#                      respect.unordered.factors = "order")
-# rf_regr_small$train(task_Soci_small)
-# 
-# # 2) Build explainer using ALL rows but ONLY the exemplary features
-# rf_exp_small <- explain_mlr3(
-#   rf_regr_small,
-#   data    = phonedata[, exemplary_features, drop = FALSE],  # all rows, 3 cols
-#   y       = phonedata$E2.Sociableness,
-#   label   = "ranger (3 features, full background)",
-#   colorize = FALSE
-# )
-# 
-# # 3) SHAP for ALL rows; restrict computation to the 3 variables; keep B small
-# set.seed(123)
-# shap_vals <- predict_parts(
-#   rf_exp_small,
-#   new_observation = rf_exp_small$data,     # ALL rows
-#   type       = "shap",
-#   variables  = exemplary_features,         # compute only for the 3 vars
-#   B          = 5
-# )
-# 
-# # 4) Global SHAP summary (beeswarm)
-# plot(shap_vals, max_vars = length(exemplary_features))
-
-# Exact SHAP for tree models + beeswarm via shapviz
 # install.packages(c("treeshap", "shapviz"))  # if needed
 library(treeshap)
 library(shapviz)
 library(ranger)
 
-# 1) Fit a compact RF on exactly your 3 features
+# 1) Fit a compact RF on our three exemplary features only (normally you would take the full model)
 rf_model <- ranger(
   formula   = E2.Sociableness ~ .,
   data      = phonedata[, c(exemplary_features, "E2.Sociableness")],
@@ -2231,12 +2194,13 @@ rf_model <- ranger(
 )
 
 # 2) Unify model with TRAINING FEATURES ONLY (no target)
+# this converts tree-based model into a standardized representation.
 unified <- ranger.unify(
   rf_model,
   data = phonedata[, exemplary_features, drop = FALSE]
 )
 
-# 3) Compute exact TreeSHAP for ALL ROWS on the 3 features
+# 3) Computes shap values
 shap_values <- treeshap(
   unified,
   phonedata[, exemplary_features, drop = FALSE]
@@ -2259,23 +2223,7 @@ sv_importance(sv, kind = "beeswarm", max_display = length(exemplary_features))
 -   Helps answer: “Why did the model predict this value for this specific observation?”
 
 ```{r, out.width="\\linewidth", out.height="65%"}
-# ## SHAP: Local Explanation for One Participant
-# 
-# # Pick one row (e.g., the first) from the explainer data
-# one_obs <- rf_exp_small$data[1, , drop = FALSE]
-# 
-# # Compute local SHAP for this observation on the 3 exemplary features
-# set.seed(123)
-# shap_one <- predict_parts(
-#   rf_exp_small,
-#   new_observation = one_obs,
-#   type      = "shap",
-#   variables = exemplary_features,
-#   B         = 5
-# )
-# 
-# # Waterfall-style plot showing feature contributions to the prediction
-# plot(shap_one)
+## SHAP: Local Explanation for One Participant
 
 # Pick a valid row (avoid NAs)
 valid_idx <- which(complete.cases(phonedata[, exemplary_features, drop = FALSE]))[1]
@@ -2287,16 +2235,13 @@ print(p_wf)
 ```
 
 
-## 2 HANDS-ON: Variable Importance & Effect Plots
-
-**CAVEAT: Causal Interpretation & Generalizability**
+## CAVEAT: Causal Interpretation & Generalizability
 
 - Do **not** carelessly interpret effect plots **causally**!
 They show how predictions change, not what causes the outcome
 - IML methods only investigate the relationship between feature values and model predictions
 - The patterns you see may not represent the true data-generating process [@Zhao2021]
 - Insights reflect your model + training data and may not hold in other populations or settings
-
 
 <!-- ## 2 HANDS-ON: Variable Importance & Effect Plots -->
 
@@ -2387,23 +2332,20 @@ They show how predictions change, not what causes the outcome
     -   <https://introduction-to-machine-learning.netlify.app/>
     -   <https://online.stanford.edu/courses/sohs-ystatslearning-statistical-learning-self-paced>
 
-## Thank you!!!
+## Thank you!
 
 **Thrilled to see your studies with machine learning ;-)**
 
 Dr. Jan Digutsch\
 [jan.digutsch\@unisg.ch](mailto:jan.digutsch@unisg.ch){.email}\
-\
 University of St. Gallen
 
 Max Bergmann\
 [maximilian.bergmann\@unisg.ch](mailto:maximilian.bergmannh@unisg.ch){.email}\
-\
 University of St. Gallen
 
 Dr. Timo Koch\
 [timo.koch\@unisg.ch](mailto:timo.koch@unisg.ch){.email}\
-\
 University of St. Gallen
 
 ## References {.allowframebreaks}
