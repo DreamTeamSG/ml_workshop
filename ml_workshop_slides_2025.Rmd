@@ -66,7 +66,7 @@ These workshop materials are a "living" joint project with  \
 | 10:50 AM – 12:00 PM| Coding Session I                | 70 min   |
 | 12:00 PM – 1:00 PM| Lunch Break                      | 60 min   |
 | 1:00 PM – 1:45 PM | Model Overview                   | 45 min   |
-| 1:45 PM – 2:30 PM | Coding Session II                | 75 min   |
+| 1:45 PM – 2:30 PM | Coding Session II                | 45 min   |
 | 2:30 PM – 2:45 PM | Coffee Break                     | 15 min   |
 | 2:45 PM – 3:45 PM | Model Interpretation             | 60 min   |
 | 3:45 PM – 4:00 PM | Coffee Break                     | 15 min   |
