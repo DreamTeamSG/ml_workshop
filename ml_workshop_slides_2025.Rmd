@@ -2100,6 +2100,8 @@ exemplary_features <- c("nightly_mean_num_call",
 
 -   Measures model performance change after randomly permuting values of a feature
 
+------------------------------------------------------------------------
+
 ```{r, out.width="\\linewidth", out.height="65%"}
 varimp <- model_parts(rf_exp, B = 2, N = nrow(phonedata), #b is the number of permutations, N is the number of obeservations
                       variables = exemplary_features, # do this for our exemplary features
@@ -2137,6 +2139,8 @@ plot(varimp, show_boxplots = TRUE)
 -   Shows prediction curve for each individual observation and average overall
 -   Reveals variation across individuals
 
+------------------------------------------------------------------------
+
 ```{r, out.width="\\linewidth", out.height="65%"}
 ice <- model_profile(rf_exp, variables = exemplary_features, 
                      N = 100, center = FALSE, type = "conditional") #N -> number of observations used, center -> should profiles be centered first, type -> type of profile ("conditional" for ICE)
@@ -2152,6 +2156,8 @@ plot(ice,  geom = "profiles", variables = "nightly_mean_num_call") +
 
 -   Displays the average effect of a feature on predictions
 -   Good for global interpretation
+
+------------------------------------------------------------------------
 
 ```{r, out.width="\\linewidth", out.height="65%"}
 pd <- model_profile(rf_exp, variables = exemplary_features, 
@@ -2171,6 +2177,8 @@ plot(pd,  geom = "aggregates", variables = "nightly_mean_num_call") +
 -   Combines feature importance + feature effects in one visualization
 -   Each point = one SHAP value for one observation
 -   Color shows feature value (low → high)
+
+------------------------------------------------------------------------
 
 ```{r, out.width="\\linewidth", out.height="65%"}
 
@@ -2221,6 +2229,8 @@ sv_importance(sv, kind = "beeswarm", max_display = length(exemplary_features))
 -   Explains one *single* prediction at a time
 -   Shows how each feature pushes the predicted value up or down
 -   Helps answer: “Why did the model predict this value for this specific observation?”
+
+------------------------------------------------------------------------
 
 ```{r, out.width="\\linewidth", out.height="65%"}
 ## SHAP: Local Explanation for One Participant
