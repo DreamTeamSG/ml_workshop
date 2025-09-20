@@ -42,17 +42,16 @@ options(scipen = 1, digits = 2, ggplot2.discrete.colour = list(RColorBrewer::bre
 
 ## Welcome!
 
-You can find all materials for this workshop here: <https://osf.io/mnfbd/>
+You can find all materials for this workshop here: <https://github.com/DreamTeamSG/ml_workshop/>
 
-![QrCode](Figures/qrcode.png){width="30%"}\centering
+![QrCode](Figures/qr_code_new.png){width="30%"}\centering
 \
 
 This workshop is based on the following tutorial paper:\
 Pargent F., Schoedel R., Stachl C. (2023). Best Practices in Supervised Machine Learning: A Tutorial for Psychologists. *Advances in Methods and Practices in Psychological Science, 6(3)*. [doi:10.1177/25152459231162559](https://journals.sagepub.com/doi/full/10.1177/25152459231162559)
 
 These workshop materials are a "living" joint project with  \
-**Florian Pargent** & **Clemens Stachl**.
-
+**Ramona Schoedel**, **Florian Pargent**, & **Clemens Stachl**.
 
 ## Agenda 
 
@@ -66,13 +65,12 @@ These workshop materials are a "living" joint project with  \
 | 10:35 AM – 10:50 AM| Coffee Break                    | 15 min   |
 | 10:50 AM – 12:00 PM| Coding Session I                | 70 min   |
 | 12:00 PM – 1:00 PM| Lunch Break                      | 60 min   |
-| 1:00 PM – 1:45 PM | Model Overview(?)                | 45 min   |
+| 1:00 PM – 1:45 PM | Model Overview                   | 45 min   |
 | 1:45 PM – 2:30 PM | Coding Session II                | 75 min   |
 | 2:30 PM – 2:45 PM | Coffee Break                     | 15 min   |
 | 2:45 PM – 3:45 PM | Model Interpretation             | 60 min   |
 | 3:45 PM – 4:00 PM | Coffee Break                     | 15 min   |
 | 4:00 PM – 5:00 PM | Coding Session III               | 60 min   |
-
 
 
 # Introduction to Machine Learning
@@ -1161,41 +1159,12 @@ res_nested$aggregate(msr("regr.rsq"))
 **Result:** negative $R^2$... We did worse than predicting with the
 target mean of the respective test sets and ignoring all predictors.
 
+## Lunchbreak!
+
+![Break](Figures/break.png){width="90%"}\centering
 
 
-
-
-
-
-
-
-
-
-
-## Agenda
-
-**Day 2**
-
--   Common Machine Learning Algorithms
-
-    -   1 Regularized Regression
-    -   2 Random Forests
-    -   3 **HANDS-ON: Random Forest Training**
-    
--   Benchmark Experiments
-
-    -   1 Model Comparisons
-    -   2 **HANDS-ON: Benchmark Experiments**
-
--   Interpretation of Models
-
-    -   1 Interpretable Machine Learning
-    -   2 **HANDS-ON: Variable Importance & Effect Plots**
-
--   Summary & Outlook
-
-
-# Common Machine Learning Algorithms
+# Model Overview
 
 ## 1 Regularized Regression
 
@@ -1919,12 +1888,7 @@ ggplot(data = dat, aes(x = repetition, y = ACC)) + theme_classic() +
 ```
 
 
-## Let's Take a Break!
-
-![Break](Figures/break.png){width="90%"}\centering
-
-
-# Benchmark Experiments
+## Benchmark Experiments
 
 ## 1 Model Comparisons
 
@@ -2060,7 +2024,7 @@ plot(bm_classif, type = "roc")
 
 ![Break](Figures/break.png){width="90%"}\centering
 
-# Interpretation of Models
+# Model Interpretation
 
 ## 1 Interpretable Machine Learning
 
@@ -2376,7 +2340,6 @@ They show how predictions change, not what causes the outcome
 
 
 # Summary
-
 
 ## Take Home Message
 
