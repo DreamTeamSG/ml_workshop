@@ -101,8 +101,9 @@ Examples for predictive modeling:
 -   situational characteristics [@Schoedel2023]
 -   personality states [@ruegger2020]
 -   personality traits [@Stachl2020]
--   add our studies here!
-
+-   life outcomes [@digutsch_everyday_smartphone_2025]
+-   satisfaction with life [@bergmann_satisfaction_life_2025]
+-   authoritarianism [@koch_digital_authoritarian_2025]
 
 ## Predictive Modeling Mindset
 
