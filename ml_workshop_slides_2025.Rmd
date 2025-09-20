@@ -1,7 +1,7 @@
 ---
 title: "An Introduction to Machine Learning in R"
-author: "Ramona Schoedel"
-date: "February 2024"
+author: "Timo Koch, Jan Digutsch, Max Bergmann"
+date: "21. September 2025"
 output:
   beamer_presentation:
     toc: false
@@ -1358,7 +1358,7 @@ splitX <- plot_learner_prediction(learner = lrn("regr.rpart"), task = task_ah) +
 
 Example: 1 Split
 
-```{r, echo=FALSE, message=FALSE}
+```{r, out.width="\\linewidth", echo=FALSE, message=FALSE}
 split1
 ```
 
@@ -1366,7 +1366,7 @@ split1
 
 Example: 1 Split
 
-```{r, echo=FALSE}
+```{r, out.width="\\linewidth", echo=FALSE}
 ## 1 Split
 tree_ah1 <- rpart(Sale_Price ~ Gr_Liv_Area + Year_Built, data = task_ah$data(), cp=0.2)
 col1 <- c("#FFFFFF", "#5E9EF1", "#B3EB77")
@@ -1377,7 +1377,7 @@ prp(tree_ah1, extra = 1, box.col = col1, type = 2, branch = 1, fallen.leaves = T
 
 Example: 2 Splits
 
-```{r, echo=FALSE}
+```{r, out.width="\\linewidth", echo=FALSE}
 split2
 ```
 
@@ -1385,7 +1385,7 @@ split2
 
 Example: 2 Splits
 
-```{r, echo=FALSE}
+```{r, out.width="\\linewidth", echo=FALSE}
 ## 2 Splits
 tree_ah2 = rpart(Sale_Price ~ Gr_Liv_Area + Year_Built, data = task_ah$data(), cp=0.1)
 col2 <- c("#FFFFFF", "#5E9EF1", "#537ACB", "#79C3C8", "#B3EB77")
@@ -1396,7 +1396,7 @@ prp(tree_ah2, extra = 1, box.col = col2, type = 2, branch = 1, fallen.leaves = T
 
 Example: 3 Splits
 
-```{r, echo=FALSE}
+```{r, out.width="\\linewidth", echo=FALSE}
 split3
 ```
 
@@ -1404,7 +1404,7 @@ split3
 
 Example: 3 Splits
 
-```{r, echo=FALSE}
+```{r, out.width="\\linewidth", echo=FALSE}
 ## 3 Splits
 tree_ah3 <- rpart(Sale_Price ~ Gr_Liv_Area + Year_Built, data = task_ah$data(), cp=0.05)
 col3 <- c("#FFFFFF", "#5E9EF1", "#537ACB", "#79C3C8", "#B3EB77", "#80F293", "#E2C04D")
@@ -1415,7 +1415,7 @@ prp(tree_ah3, extra = 1, box.col = col3, type = 2, branch = 1, fallen.leaves = T
 
 Example: Default Number of Splits
 
-```{r, echo=FALSE}
+```{r, out.width="\\linewidth", echo=FALSE}
 splitX
 ```
 
@@ -1423,7 +1423,7 @@ splitX
 
 Example: Default Number of Splits
 
-```{r, echo=FALSE}
+```{r, out.width="\\linewidth", echo=FALSE}
 ## X Splits (default setting)
 tree_ah6 <- rpart(Sale_Price ~ Gr_Liv_Area + Year_Built, data = task_ah$data())
 col6 <- c("#FFFFFF", "#5E9EF1", "#537ACB", "#5276B8","#444983", "#5276C5", "#5899F7",
@@ -1902,7 +1902,7 @@ res$aggregate(mes)
 
 Variability of resampling estimates: 
 
-```{r, echo=FALSE}
+```{r, out.width="\\linewidth", echo=FALSE}
 dat <- res$score(msr("classif.acc", id = "ACC"))
 dat$repetition <- factor(rep_cv$repeats(1:15))
 dat$aggregated <- "aggregated"
@@ -2029,7 +2029,7 @@ bmr_regr[, c(4,7:9)]
 
 ------------------------------------------------------------------------
 
-```{r}
+```{r, out.width="\\linewidth"}
 plot(bm_regr, measure = msr("regr.rsq"))
 ```
 
@@ -2044,13 +2044,13 @@ bmr_classif[, c(4,7:9)]
 
 ------------------------------------------------------------------------
 
-```{r}
+```{r,  out.width="\\linewidth"}
 plot(bm_classif, measure = msr("classif.auc"))
 ```
 
 ------------------------------------------------------------------------
 
-```{r}
+```{r,  out.width="\\linewidth"}
 plot(bm_classif, type = "roc")
 ```
 
