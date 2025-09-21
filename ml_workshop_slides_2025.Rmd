@@ -1719,7 +1719,7 @@ trees_500
 
 **Exercise 3:**
 
-1. Repeat Earlier Steps (From Yesterday)
+1. Repeat Earlier Steps
 2. Prepare the Data for Classification
 3. Train the Model
 4. Inspect the Model
