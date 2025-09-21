@@ -2072,7 +2072,7 @@ rf_regr$train(task_Soci)
 
 Construct a new **explainer**.
 
-```{r}
+```{r, out.width="\\linewidth", out.height="65%"}
 rf_exp <- explain_mlr3(rf_regr, 
                        data = phonedata[, c(1:1821, 
                               which(colnames(phonedata) == "gender"))],
@@ -2083,7 +2083,7 @@ rf_exp <- explain_mlr3(rf_regr,
 
 ------------------------------------------------------------------------
 
-```{r}
+```{r, out.width="\\linewidth", out.height="65%"}
 # select a small subset of variables to reduce compute time
 # NOTE: in practice you probably want to use ALL variables!
 
@@ -2103,9 +2103,15 @@ exemplary_features <- c("nightly_mean_num_call",
 ------------------------------------------------------------------------
 
 ```{r, out.width="\\linewidth", out.height="65%"}
-varimp <- model_parts(rf_exp, B = 2, N = nrow(phonedata), #b is the number of permutations, N is the number of obeservations
-                      variables = exemplary_features, # do this for our exemplary features
-                      type = "difference") # which score is reported
+varimp <- model_parts(rf_exp, 
+                      B = 2, 
+                      N = nrow(phonedata), 
+                      #b is the number of permutations
+                      #N is the number of obeservations
+                      variables = exemplary_features, 
+                      # do this for our exemplary features
+                      type = "difference") 
+                      # which score is reported
 
 # now plot the results
 plot(varimp, show_boxplots = TRUE)
@@ -2142,11 +2148,19 @@ plot(varimp, show_boxplots = TRUE)
 ------------------------------------------------------------------------
 
 ```{r, out.width="\\linewidth", out.height="65%"}
-ice <- model_profile(rf_exp, variables = exemplary_features, 
-                     N = 100, center = FALSE, type = "conditional") #N -> number of observations used, center -> should profiles be centered first, type -> type of profile ("conditional" for ICE)
+ice <- model_profile(rf_exp, 
+                     variables = exemplary_features, 
+                     N = 100, 
+                     center = FALSE, 
+                     type = "conditional") 
+#N -> number of observations used
+# center -> should profiles be centered first
+#type -> type of profile ("conditional" for ICE)
 
 # create the plot
-plot(ice,  geom = "profiles", variables = "nightly_mean_num_call") + 
+plot(ice,  
+     geom = "profiles", 
+     variables = "nightly_mean_num_call") + 
   geom_rug(sides = "b") + xlim(0, 2) + ylim(0.5, 2)
 ```
 
@@ -2160,11 +2174,16 @@ plot(ice,  geom = "profiles", variables = "nightly_mean_num_call") +
 ------------------------------------------------------------------------
 
 ```{r, out.width="\\linewidth", out.height="65%"}
-pd <- model_profile(rf_exp, variables = exemplary_features, 
-                     N = 100, center = FALSE, type = "partial") # "partial" for PDP
+pd <- model_profile(rf_exp, 
+                    variables = exemplary_features, 
+                     N = 100, 
+                    center = FALSE, 
+                    type = "partial") # "partial" for PDP
 
 #  create plot
-plot(pd,  geom = "aggregates", variables = "nightly_mean_num_call") + 
+plot(pd,  
+     geom = "aggregates", 
+     variables = "nightly_mean_num_call") + 
   geom_rug(sides = "b") + xlim(0, 2) + ylim(0.5, 2)
 ```
 
@@ -2184,7 +2203,8 @@ plot(pd,  geom = "aggregates", variables = "nightly_mean_num_call") +
 
 # Compute a SHAP summary (global) for a manageable subset of observations 
 
-# SHAP can take very long to compute! Therefore, we run the analyses on a subset of the data
+# SHAP can take very long to compute! 
+# Therefore, we run the analyses on a subset of the data
 # to compute SHAP in R, we need to use some other packages
 
 # install.packages(c("treeshap", "shapviz"))  # if needed
@@ -2192,14 +2212,21 @@ library(treeshap)
 library(shapviz)
 library(ranger)
 
-# 1) Fit a compact RF on our three exemplary features only (normally you would take the full model)
+# 1) Fit a compact RF on our three exemplary features only 
+# (normally you would take the full model)
 rf_model <- ranger(
   formula   = E2.Sociableness ~ .,
   data      = phonedata[, c(exemplary_features, "E2.Sociableness")],
   num.trees = 200,
   mtry      = min(2, length(exemplary_features)),
-  importance = "impurity"
+  importance = "permutation"
 )
+
+```
+
+------------------------------------------------------------------------
+
+```{r, out.width="\\linewidth", out.height="65%", message=FALSE, warning=FALSE}
 
 # 2) Unify model with TRAINING FEATURES ONLY (no target)
 # this converts tree-based model into a standardized representation.
@@ -2211,13 +2238,22 @@ unified <- ranger.unify(
 # 3) Computes shap values
 shap_values <- treeshap(
   unified,
-  phonedata[, exemplary_features, drop = FALSE]
+  phonedata[, exemplary_features, drop = FALSE],
+  verbose = FALSE # suppress prpgress bar for pdf
 )
+
+```
+
+------------------------------------------------------------------------
+
+```{r, out.width="\\linewidth", out.height="65%"}
 
 # 4) Visualize: beeswarm with shapviz (global)
 sv <- shapviz(shap_values, X = phonedata[, exemplary_features, drop = FALSE])
-sv_importance(sv, kind = "beeswarm", max_display = length(exemplary_features))
 
+sv_importance(sv, 
+              kind = "beeswarm", 
+              max_display = length(exemplary_features))
 
 ```
 
@@ -2239,9 +2275,11 @@ sv_importance(sv, kind = "beeswarm", max_display = length(exemplary_features))
 valid_idx <- which(complete.cases(phonedata[, exemplary_features, drop = FALSE]))[1]
 
 # Local waterfall (prints)
-p_wf <- sv_waterfall(sv, row_index = valid_idx, max_display = length(exemplary_features))
-print(p_wf)
+p_wf <- sv_waterfall(sv, 
+                     row_index = valid_idx, 
+                     max_display = length(exemplary_features))
 
+print(p_wf) # print the plot
 ```
 
 
